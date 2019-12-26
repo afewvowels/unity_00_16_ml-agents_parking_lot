@@ -14,9 +14,14 @@ public class CarAgent : Agent
     public LayerMask goalLayer;
     private LayerMask maskLayers;
     private bool[] parkingSensors;
+    private int customMaxStepCount;
+    private int customCurrentStepCount;
 
     private void Start()
     {
+        customMaxStepCount = 100;
+        customCurrentStepCount = 0;
+
         parkingSensors = new bool[4];
 
         academy = FindObjectOfType<CarAcademy>();
@@ -26,7 +31,7 @@ public class CarAgent : Agent
         maskLayers = ~(1 << goalLayer);
     }
 
-    private void FixedUpdate()
+    public override void AgentAction(float[] vectorAction)
     {
         if (InsideGoal())
         {
@@ -39,10 +44,14 @@ public class CarAgent : Agent
             AddReward(-0.5f);
             Done();
         }
-    }
 
-    public override void AgentAction(float[] vectorAction)
-    {
+        if (customCurrentStepCount > customMaxStepCount)
+        {
+            Done();
+        }
+
+        customCurrentStepCount++;
+
         var moveAction = Mathf.FloorToInt(vectorAction[0]);
         var rotateAction = Mathf.FloorToInt(vectorAction[1]);
 
@@ -56,6 +65,9 @@ public class CarAgent : Agent
                 break;
             case 3:
                 rb.AddForce(transform.forward * -forceMultiplier, ForceMode.Force);
+                break;
+            case 4:
+                rb.AddForce(transform.forward * -forceMultiplier * 1.6f, ForceMode.Force);
                 break;
         }
 
@@ -93,6 +105,10 @@ public class CarAgent : Agent
         {
             action[0] = 2.0f;
         }
+        else if (Input.GetKey(KeyCode.LeftControl))
+        {
+            action[0] = 4.0f;
+        }
 
         if (Input.GetKey(KeyCode.A))
         {
@@ -116,6 +132,8 @@ public class CarAgent : Agent
 
     public override void AgentReset()
     {
+        customCurrentStepCount = 0;
+
         rb.velocity = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         transform.localPosition = new Vector3 (0.0f, 0.0f, -5.0f);
@@ -125,10 +143,23 @@ public class CarAgent : Agent
         int groups = Random.Range((int)academy.resetParameters["gMin"], ((int)academy.resetParameters["gMax"] + 1));
         float carChance = academy.resetParameters["carChance"];
 
+        customMaxStepCount = (int)academy.resetParameters["steps"];
+
+        if ((int)academy.resetParameters["bigSpawn"] == 1)
+        {
+            sceneManager.bigSpawn = true;
+        }
+        else
+        {
+            sceneManager.bigSpawn = false;
+        }
+
         sceneManager.rows = rows;
         sceneManager.cols = cols;
         sceneManager.groups = groups;
         sceneManager.spawnChance = carChance;
+
+        rb.isKinematic = true;
 
         StopAllCoroutines();
         StartCoroutine(sceneManager.SpawnCars());
@@ -138,16 +169,16 @@ public class CarAgent : Agent
     {
         bool inGoal = false;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < sensorObjects.Length; i++)
         {
-            if (Physics.Raycast(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down), 1.0f, maskLayers))
+            if (Physics.Raycast(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down), 1.5f, maskLayers))
             {   
-                Debug.DrawRay(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down), Color.magenta);
+                Debug.DrawRay(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down) * 1.5f, Color.magenta);
                 parkingSensors[i] = true;
             }
             else
             {
-                Debug.DrawRay(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down), Color.cyan);
+                Debug.DrawRay(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down) * 1.5f, Color.cyan);
                 parkingSensors[i] = false;
             }
         }

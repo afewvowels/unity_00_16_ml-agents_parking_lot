@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -633,17 +633,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TrainingConfiguration:
-    width: 80
-    height: 80
-    qualityLevel: 1
-    timeScale: 100
-    targetFrameRate: -1
+    width: 1024
+    height: 1024
+    qualityLevel: 0
+    timeScale: 50
+    targetFrameRate: 24
   m_InferenceConfiguration:
-    width: 1280
-    height: 720
-    qualityLevel: 5
-    timeScale: 1
-    targetFrameRate: 60
+    width: 1024
+    height: 1024
+    qualityLevel: 0
+    timeScale: 50
+    targetFrameRate: 24
   resetParameters:
     m_ResetParameters:
     - key: rMin
@@ -660,6 +660,10 @@ MonoBehaviour:
       value: 1
     - key: carChance
       value: 0
+    - key: steps
+      value: 2000
+    - key: bigSpawn
+      value: 1
 --- !u!4 &794491227
 Transform:
   m_ObjectHideFlags: 0

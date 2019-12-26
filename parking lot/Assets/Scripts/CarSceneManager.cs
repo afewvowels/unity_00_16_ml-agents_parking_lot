@@ -15,11 +15,7 @@ public class CarSceneManager : MonoBehaviour
     public int rows;
     public int cols;
     public int groups;
-
-    private void Start()
-    {
-        
-    }
+    public bool bigSpawn;
 
     public IEnumerator SpawnCars()
     {
@@ -98,6 +94,21 @@ public class CarSceneManager : MonoBehaviour
             rPos = 0.0f;
             gPos += cols * 8.0f;
         }
+
+        Vector3 goalScale;
+
+        if (bigSpawn)
+        {
+            goalScale = new Vector3(7.0f, 0.15f, 7.0f);
+        }
+        else
+        {
+            goalScale = new Vector3(3.75f, 0.15f, 2.1f);
+        }
+
+        goal.transform.GetChild(0).localScale = goalScale;
+
+        agent.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     public IEnumerator ClearLot()
@@ -129,15 +140,15 @@ public class CarSceneManager : MonoBehaviour
         barriersRoot.transform.localPosition = new Vector3(xPos, 0.0f, zPos);
 
         barriers[0].transform.localPosition = new Vector3(xPos + 15.0f, 2.0f, 0.0f);
-        barriers[0].GetComponent<BoxCollider>().size = new Vector3(0.5f, 5.0f, zPos * 5.0f);
+        barriers[0].GetComponent<BoxCollider>().size = new Vector3(0.5f, 5.0f, 150.0f);
 
         barriers[1].transform.localPosition = new Vector3(-xPos - 15.0f, 2.0f, 0.0f);
-        barriers[1].GetComponent<BoxCollider>().size = new Vector3(0.5f, 5.0f, zPos * 5.0f);
+        barriers[1].GetComponent<BoxCollider>().size = new Vector3(0.5f, 5.0f, 150.0f);
 
         barriers[2].transform.localPosition = new Vector3(0.0f, 2.0f, zPos + 13.0f);
-        barriers[2].GetComponent<BoxCollider>().size = new Vector3(xPos * 7.0f, 5.0f, 0.5f);
+        barriers[2].GetComponent<BoxCollider>().size = new Vector3(150.0f, 5.0f, 0.5f);
 
         barriers[3].transform.localPosition = new Vector3(0.0f, 2.0f, -zPos - 13.0f);
-        barriers[3].GetComponent<BoxCollider>().size = new Vector3(xPos * 7.0f, 5.0f, 0.5f);
+        barriers[3].GetComponent<BoxCollider>().size = new Vector3(150.0f, 5.0f, 0.5f);
     }
 }

@@ -24,4 +24,4 @@ default:
             gamma: 0.99
 
 ParkingLotAgent:
-    max_steps: 2.0e6
+    max_steps: 3.0e6

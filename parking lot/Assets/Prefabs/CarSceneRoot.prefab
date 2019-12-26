@@ -114,12 +114,12 @@ MonoBehaviour:
   m_BrainParameters:
     vectorObservationSize: 4
     numStackedVectorObservations: 2
-    vectorActionSize: 0400000003000000
+    vectorActionSize: 0500000003000000
     vectorActionDescriptions: []
     vectorActionSpaceType: 0
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 2
+  m_BehaviorType: 0
   m_BehaviorName: ParkingLotAgent
 --- !u!114 &2252213934675482262
 MonoBehaviour:
@@ -140,7 +140,7 @@ MonoBehaviour:
     numberOfActionsBetweenDecisions: 1
   academy: {fileID: 0}
   sceneManager: {fileID: 2252213935371394919}
-  forceMultiplier: 500
+  forceMultiplier: 600
   sensorObjects:
   - {fileID: 2252213936097712409}
   - {fileID: 2252213934936962148}
@@ -169,13 +169,13 @@ MonoBehaviour:
   raysPerDirection: 4
   maxRayDegrees: 160
   sphereCastRadius: 0.25
-  rayLength: 10
+  rayLength: 18
   observationStacks: 3
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   useWorldPositions: 1
-  startVerticalOffset: 0.5
-  endVerticalOffset: 0
+  startVerticalOffset: 0.75
+  endVerticalOffset: 0.75
 --- !u!1 &2252213934936962148
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,6 +344,7 @@ MonoBehaviour:
   rows: 4
   cols: 2
   groups: 3
+  bigSpawn: 0
 --- !u!1 &2252213935376110646
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,6 +600,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2252213936080931765}
+  - component: {fileID: 8923171849036563694}
   m_Layer: 8
   m_Name: GoalRoot
   m_TagString: goal
@@ -621,6 +623,19 @@ Transform:
   m_Father: {fileID: 2252213935371394916}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8923171849036563694
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2252213936080931764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 1}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &2252213936097712409
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,8 +801,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 10, z: 1}
-  m_Center: {x: 0, y: 5, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2252213935641369500
 PrefabInstance:
   m_ObjectHideFlags: 0
