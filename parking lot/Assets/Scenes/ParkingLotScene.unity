@@ -636,24 +636,24 @@ MonoBehaviour:
     width: 1024
     height: 1024
     qualityLevel: 0
-    timeScale: 50
+    timeScale: 75
     targetFrameRate: 24
   m_InferenceConfiguration:
     width: 1024
     height: 1024
     qualityLevel: 0
-    timeScale: 50
+    timeScale: 75
     targetFrameRate: 24
   resetParameters:
     m_ResetParameters:
     - key: rMin
       value: 1
     - key: rMax
-      value: 2
+      value: 1
     - key: cMin
       value: 2
     - key: cMax
-      value: 3
+      value: 2
     - key: gMin
       value: 1
     - key: gMax
@@ -661,7 +661,7 @@ MonoBehaviour:
     - key: carChance
       value: 0
     - key: steps
-      value: 2000
+      value: 3000
     - key: bigSpawn
       value: 1
 --- !u!4 &794491227

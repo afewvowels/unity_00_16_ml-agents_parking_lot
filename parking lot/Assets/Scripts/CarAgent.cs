@@ -136,6 +136,7 @@ public class CarAgent : Agent
 
         rb.velocity = Vector3.zero;
         transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        transform.Rotate(0.0f, 90.0f, 0.0f);
         transform.localPosition = new Vector3 (0.0f, 0.0f, -5.0f);
 
         int rows = Random.Range((int)academy.resetParameters["rMin"], ((int)academy.resetParameters["rMax"] + 1));
@@ -175,6 +176,7 @@ public class CarAgent : Agent
             {   
                 Debug.DrawRay(sensorObjects[i].transform.position, sensorObjects[i].transform.TransformDirection(Vector3.down) * 1.5f, Color.magenta);
                 parkingSensors[i] = true;
+                AddReward(0.00003f);
             }
             else
             {
@@ -204,4 +206,13 @@ public class CarAgent : Agent
             AddReward(-0.1f);
         }
     }
+
+    private void OnCollisionStay(Collision c)
+    {
+        if (c.gameObject.CompareTag("car"))
+        {
+            AddReward(-0.01f);
+        }
+    }
+
 }

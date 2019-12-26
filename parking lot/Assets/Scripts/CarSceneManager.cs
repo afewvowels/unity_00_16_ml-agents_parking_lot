@@ -99,7 +99,7 @@ public class CarSceneManager : MonoBehaviour
 
         if (bigSpawn)
         {
-            goalScale = new Vector3(7.0f, 0.15f, 7.0f);
+            goalScale = new Vector3(5.0f, 0.15f, 2.7f);
         }
         else
         {

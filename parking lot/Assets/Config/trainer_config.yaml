@@ -24,4 +24,9 @@ default:
             gamma: 0.99
 
 ParkingLotAgent:
-    max_steps: 3.0e6
+    max_steps: 3.5e6
+    reward_signals:
+        curiosity:
+            strength: 0.03
+            gamma: 0.99
+            encoding_size: 128
